@@ -71,8 +71,8 @@ public class FactureController {
 	
 	
 	
-	@RequestMapping("/updateProduit")
-	public String updateProduit(@ModelAttribute("produit") Facture facture,
+	@RequestMapping("/updateFacture")
+	public String updateFacture(@ModelAttribute("produit") Facture facture,
 	@RequestParam("date") String date,ModelMap modelMap) throws ParseException
 	{
 		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");

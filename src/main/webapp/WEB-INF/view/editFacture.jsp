@@ -16,10 +16,9 @@ src="webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 	<title>Modifier une Facture</title>
 </head>
 	<body>
-		<form action="updateFacture" method="post">
 			<div class="container">
 				<div class="card-body">
-					<form action="updateProduit" method="post">
+						<form action="updateFacture" method="post">
 						<div class="form-group">
 							<label class="control-label">ID Facture :</label>
 							<input type="text" name="idFacture" value="${fact.idFacture}" readonly class="form-control"/>
@@ -32,7 +31,7 @@ src="webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 				
 						<div class="form-group">
 							<label class="control-label">Montant :</label>
-							<input type="text" ame="Montant" value="${fact.getMontant()}" class="form-control"/>
+							<input type="text" name="Montant" value="${fact.getMontant()}" class="form-control"/>
 						</div>
 						
 						<div class="form-group">

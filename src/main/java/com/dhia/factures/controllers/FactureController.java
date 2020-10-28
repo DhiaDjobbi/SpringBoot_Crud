@@ -30,7 +30,7 @@ public class FactureController {
 	
 	
 	@RequestMapping("/saveFacture")
-	public String saveFacture(@ModelAttribute("produit") Facture facture,
+	public String saveFacture(@ModelAttribute("facture") Facture facture,
 	@RequestParam("date") String date,
 	ModelMap modelMap) throws ParseException
 		{

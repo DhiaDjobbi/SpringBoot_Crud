@@ -78,7 +78,17 @@
 		<artifactId>spring-boot-starter-thymeleaf</artifactId>
 	</dependency>	
 		
-		
+	<dependency>
+		<groupId>nz.net.ultraq.thymeleaf</groupId>
+		<artifactId>thymeleaf-layout-dialect</artifactId>
+	</dependency>
+	
+	<dependency>
+		<groupId>org.webjars</groupId>
+		<artifactId>jquery</artifactId>
+		<version>3.5.1</version>
+	</dependency>	
+	
 	</dependencies>
 
 	<build>

@@ -44,7 +44,7 @@ pageEncoding="windows-1256"%>
 				</table>
 			</div>
 		</div>
-			<a href="new" class="btn btn-info" >Liste des Factures</a>
+			<a href="new" class="btn btn-info" >New Facture</a>
 		</div>
 	</body>
 </html>

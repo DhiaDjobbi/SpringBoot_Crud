@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,8 +19,8 @@ import com.dhia.factures.services.FactureService;
 
 @Controller
 public class FactureController {
-	@Autowired
 	
+	@Autowired
 	FactureService factureService;
 	@RequestMapping("/new")
 	public String showCreate()
@@ -44,19 +45,32 @@ public class FactureController {
 	
 	
 	@RequestMapping("/")
-	public String listeFacture(ModelMap modelMap)
+	public String listeFacture(ModelMap modelMap,
+			@RequestParam (name="page",defaultValue = "0") int page,
+			@RequestParam (name="size", defaultValue = "2") int size)
 	{
-		List<Facture> facts = factureService.getAllFactures();
+		Page<Facture> facts = factureService.getAllFacturesParPage(page, size);
 		modelMap.addAttribute("facts", facts);
+		modelMap.addAttribute("produits", facts);
+		modelMap.addAttribute("pages", new int[facts.getTotalPages()]);
+		modelMap.addAttribute("currentPage", page);
 		return "indexFactures";
 	}
 	
 	@RequestMapping("/delete")
-	public String supprimerFacture(@RequestParam("id") Long id,ModelMap modelMap)
+	public String supprimerFacture(@RequestParam("id") Long id,ModelMap modelMap,
+			@RequestParam (name="page",defaultValue = "0") int page,
+			@RequestParam (name="size", defaultValue = "2") int size)
 	{
+		
 		factureService.deleteFactureById(id);
-		List<Facture> facts = factureService.getAllFactures();
+		Page<Facture> facts = factureService.getAllFacturesParPage(page,
+		size);
 		modelMap.addAttribute("facts", facts);
+		modelMap.addAttribute("pages", new int[facts.getTotalPages()]);
+		modelMap.addAttribute("currentPage", page);
+		modelMap.addAttribute("size", size);
+
 		return "indexFactures";
 	}	
 	

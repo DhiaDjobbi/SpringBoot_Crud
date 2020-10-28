@@ -3,6 +3,8 @@ package com.dhia.factures.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.dhia.factures.entities.Facture;
@@ -46,6 +48,12 @@ public class FactureServiceImpl implements FactureService {
 	@Override
 	public List<Facture> getAllFactures() {
 		return factureRepository.findAll();	
+	}
+	
+	
+	@Override
+	public Page<Facture> getAllFacturesParPage(int page, int size) {
+	return factureRepository.findAll(PageRequest.of(page, size));
 	}
 
 }

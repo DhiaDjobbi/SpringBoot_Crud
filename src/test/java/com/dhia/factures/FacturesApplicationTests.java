@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 
 import com.dhia.factures.entities.Facture;
+import com.dhia.factures.entities.User;
 import com.dhia.factures.repo.FactureRepository;
 import com.dhia.factures.services.FactureService;
 
@@ -79,4 +80,90 @@ class FacturesApplicationTests {
 			}
 	}
 	
+	
+	
+	@Test
+	public void testFindFactureByName()
+	{
+		List<Facture> facts = factureRepository.findByNomSociete("facture4");
+		for (Facture f : facts)
+		{
+			System.out.println(f);
+		}
+	}	
+	
+	@Test
+	public void testFindFactureByNameLike()
+	{
+		List<Facture> facts = factureRepository.findByNomSocieteContains("fact");
+		for (Facture f : facts)
+		{
+			System.out.println(f);
+		}
+	}		
+	
+	
+	@Test 
+	public void testfindByNomMontant() 
+	{ 
+		List<Facture> facts = factureRepository.findByNomMontant("facture1", 400.0); 
+		for (Facture f : facts) 
+			{ 
+				System.out.println(f); 
+			} 		
+	} 
+
+	
+
+	
+	@Test 
+	public void testfindByUser() 
+	{ 
+		User user = new User(); 
+		user.setIdUser(1L);
+		List<Facture> facts = factureRepository.findByUser(user); 
+		for (Facture f : facts) 
+			{ 
+				System.out.println(f); 
+			} 
+	} 
+
+	
+	@Test 
+	public void TestfindByUserIdUser() 
+	{ 
+		List<Facture> facts = factureRepository.findByUserIdUser(2L); 
+		for (Facture f : facts) 
+		{ 
+			System.out.println(f); 
+		} 
+	} 
+
+	
+	@Test 
+	public void testfindByOrderByNomProduitAsc() 
+	{ 
+		List<Facture> facts =  factureRepository.findByOrderByNomSocieteAsc(); 
+		for (Facture f : facts) 
+		{ 
+			System.out.println(f); 
+		} 
+	}
+
+	
+	
+	@Test 
+	public void testTrierProduitsNomsPrix() 
+	{ 
+		List<Facture> facts = factureRepository.trierFacturesNomMontant(); 
+		for (Facture f : facts) 
+		{ 
+			System.out.println(f); 
+		} 
+	} 
+
+	
 }
+
+
+

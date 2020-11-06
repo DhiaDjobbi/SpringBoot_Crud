@@ -6,9 +6,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
-public class Facture {
+public class Facture { 
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Long idFacture;
@@ -16,6 +17,8 @@ public class Facture {
 	private Double Montant;
 	private Date dateExpiration;
 	
+	@ManyToOne
+	private User user;
 	
 	
 	@Override
@@ -56,6 +59,14 @@ public class Facture {
 	}
 	public void setDateExpiration(Date dateExpiration) {
 		this.dateExpiration = dateExpiration;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 	
 	

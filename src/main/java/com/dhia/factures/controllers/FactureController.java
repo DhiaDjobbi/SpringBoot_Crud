@@ -5,10 +5,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,29 +25,29 @@ public class FactureController {
 	
 	@Autowired
 	FactureService factureService;
+	
 	@RequestMapping("/new")
-	public String showCreate()
+	public String showCreate(ModelMap modelMap)
 	{
+		modelMap.addAttribute("facture", new Facture());
 		return "createFacture";
 	}
 	
 	
+	
 	@RequestMapping("/saveFacture")
-	public String saveFacture(@ModelAttribute("facture") Facture facture,
-	@RequestParam("date") String date,
-	ModelMap modelMap) throws ParseException
-		{
-			SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
-			Date dateCreation = dateformat.parse(String.valueOf(date));
-			facture.setDateExpiration(dateCreation);
-			Facture saveFacture = factureService.saveFacture(facture);
-			String msg ="Facture enregistré avec Id "+saveFacture.getIdFacture();
-			modelMap.addAttribute("msg", msg);
+	public String saveFacture(@Valid Facture facture,BindingResult bindingResult)
+	{
+		if (bindingResult.hasErrors()) 
 			return "createFacture";
-		}
+
+		factureService.saveFacture(facture);
+		return "createFacture";
+	}
 	
 	
-	@RequestMapping("/")
+	
+	@RequestMapping("/index")
 	public String listeFacture(ModelMap modelMap,
 			@RequestParam (name="page",defaultValue = "0") int page,
 			@RequestParam (name="size", defaultValue = "2") int size)

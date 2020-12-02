@@ -29,8 +29,22 @@ public class FactureController {
 	@RequestMapping("/new")
 	public String showCreate(ModelMap modelMap)
 	{
+		modelMap.addAttribute("mode", "new");
 		modelMap.addAttribute("facture", new Facture());
-		return "createFacture";
+		return "formFacture";
+	}
+	
+	@RequestMapping("/edit")
+	public String editFacture(@RequestParam("id") Long id,ModelMap modelMap)
+	{
+		Facture f= factureService.getFacture(id);
+		System.out.println(f.getIdFacture());
+		System.out.println(f.getNomSociete());
+		
+		modelMap.addAttribute("facture", f);
+		modelMap.addAttribute("mode", "edit");
+
+		return "formFacture";
 	}
 	
 	
@@ -38,11 +52,16 @@ public class FactureController {
 	@RequestMapping("/saveFacture")
 	public String saveFacture(@Valid Facture facture,BindingResult bindingResult)
 	{
-		if (bindingResult.hasErrors()) 
-			return "createFacture";
+		
+		System.out.println("11111112222211111");
+		System.out.println(facture.getIdFacture());
 
+
+		if (bindingResult.hasErrors()) {
+			return "formFacture";
+		}
 		factureService.saveFacture(facture);
-		return "createFacture";
+		return "formFacture";
 	}
 	
 	
@@ -78,13 +97,7 @@ public class FactureController {
 	}	
 	
 	
-	@RequestMapping("/edit")
-	public String editFacture(@RequestParam("id") Long id,ModelMap modelMap)
-	{
-		Facture f= factureService.getFacture(id);
-		modelMap.addAttribute("fact", f);
-		return "editFacture";
-	}
+
 	
 	
 	
